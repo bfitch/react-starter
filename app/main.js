@@ -1,12 +1,14 @@
 import React from "react";
 import Router from "react-router";
-import App from "./components/app.js";
+import { App, About, Cool } from "./components/app.js";
 
 const Route        = Router.Route;
 const DefaultRoute = Router.DefaultRoute;
 
 let routes = (
   <Route path="/" handler={App}>
+    <Route path="about" handler={About}/>
+    <Route path="cool" handler={Cool}/>
   </Route>
 );
 

@@ -11,3 +11,19 @@ export class App extends React.Component {
     );
   }
 }
+
+export class About extends React.Component {
+  render() {
+    return (
+      <h1>About</h1>
+    );
+  }
+}
+
+export class Cool extends React.Component {
+  render() {
+    return (
+      <h1>CCOOOOL</h1>
+    );
+  }
+}

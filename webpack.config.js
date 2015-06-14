@@ -9,17 +9,13 @@ module.exports = {
   },
   module: {
     preLoaders: [
-      {
-        test: /\.js$/, loader: "eslint-loader",
-        exclude: /(node_modules|bower_components)/
-      }
+      { test: /\.js$/, loader: "eslint-loader",
+        exclude: /(node_modules|bower_components)/ }
     ],
     loaders: [
-      { test: /\.js$/, loader: 'jsx-loader' },
-      {
+      { test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
-        loader: 'babel'
-      }
+        loader: 'babel' }
     ]
   },
   resolve: {
