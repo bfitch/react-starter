@@ -11,27 +11,3 @@ export class App extends React.Component {
     );
   }
 }
-
-export class About extends React.Component {
-  render() {
-    return (
-      <h1>About</h1>
-    );
-  }
-}
-
-export class Users extends React.Component {
-  render() {
-    return (
-      <h1>Users</h1>
-    );
-  }
-}
-
-export class NoMatch extends React.Component {
-  render() {
-    return (
-      <h1>No MATCH</h1>
-    );
-  }
-}
