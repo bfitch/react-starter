@@ -7,11 +7,11 @@ const DefaultRoute = Router.DefaultRoute;
 
 let routes = (
   <Route path="/" handler={App}>
-    <Route path="about" handler={About}/>
-    <Route path="cool" handler={Cool}/>
+    <Route name="about" handler={About}/>
+    <Route name="cool" handler={Cool}/>
   </Route>
 );
 
-Router.run(routes, function (Handler) {
+Router.run(routes, Router.HistoryLocation, function(Handler) {
   React.render(<Handler/>, document.getElementById("app"));
 });

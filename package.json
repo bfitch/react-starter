@@ -4,7 +4,7 @@
   "description": "Starter for React",
   "main": "",
   "scripts": {
-    "dev": "webpack-dev-server -hot --devtool eval --progress --colors"
+    "dev": "webpack-dev-server --hot --devtool source-map --progress --colors --inline --history-api-fallback"
   },
   "author": "",
   "license": "ISC",
@@ -52,12 +52,12 @@
       "react/jsx-no-undef": 1,
       "react/jsx-quotes": 1,
       "react/jsx-sort-prop-types": 1,
-      "react/jsx-sort-props": 1,
+      "react/jsx-sort-props": 0,
       "react/jsx-uses-react": 1,
       "react/jsx-uses-vars": 1,
       "react/no-did-mount-set-state": 1,
       "react/no-did-update-set-state": 1,
-      "react/no-multi-comp": 1,
+      "react/no-multi-comp": 0,
       "react/no-unknown-property": 1,
       "react/prop-types": 1,
       "react/react-in-jsx-scope": 1,

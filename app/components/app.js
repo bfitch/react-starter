@@ -1,11 +1,20 @@
 import React from "react";
-import { RouteHandler } from "react-router";
+import Router from "react-router";
+
+const Link         = Router.Link;
+const RouteHandler = Router.RouteHandler;
 
 export class App extends React.Component {
   render() {
     return (
       <div>
         <h1>App</h1>
+
+        <ul>
+          <li><Link to="about">About</Link></li>
+          <li><Link to="cool">Cool</Link></li>
+        </ul>
+
         <RouteHandler/>
       </div>
     );
