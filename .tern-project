@@ -2,8 +2,7 @@
   "libs": [
     "browser",
     "underscore",
-    "jquery",
-    "node"
+    "jquery"
       ],
     "plugins": {
     }
