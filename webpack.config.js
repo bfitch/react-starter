@@ -2,10 +2,10 @@
 
 module.exports = {
   entry: {
-    app: ['webpack/hot/dev-server', './app/main.js']
+    app: ["webpack/hot/dev-server", "./app/main.js"]
   },
   output: {
-    filename: 'dist/bundle.js'
+    filename: "dist/bundle.js"
   },
   module: {
     preLoaders: [
@@ -15,10 +15,10 @@ module.exports = {
     loaders: [
       { test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
-        loader: 'babel' }
+        loader: "babel" }
     ]
   },
   resolve: {
-    extensions: ['', '.js', '.json']
+    extensions: ["", ".js", ".json"]
   }
 };
