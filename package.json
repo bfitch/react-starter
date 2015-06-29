@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "baobab": "^1.1.1",
+    "baobab-react": "^0.1.1",
     "react": "^0.13.3",
     "react-router": "^0.13.3"
   },
@@ -16,6 +18,7 @@
     "babel-core": "^5.4.7",
     "babel-eslint": "^3.1.15",
     "babel-loader": "^5.1.3",
+    "babel-runtime": "^5.6.15",
     "eslint": "^0.21.2",
     "eslint-loader": "^0.11.2",
     "eslint-plugin-react": "^2.5.0",
@@ -38,7 +41,11 @@
     ],
     "parser": "babel-eslint",
     "rules": {
-      "quotes": [1, "double", "avoid-escape"],
+      "quotes": [
+        1,
+        "double",
+        "avoid-escape"
+      ],
       "no-unused-vars": 0,
       "no-console": 0,
       "no-debugger": 0,
@@ -61,7 +68,7 @@
       "react/no-did-update-set-state": 1,
       "react/no-multi-comp": 0,
       "react/no-unknown-property": 1,
-      "react/prop-types": 1,
+      "react/prop-types": 0,
       "react/react-in-jsx-scope": 1,
       "react/self-closing-comp": 1,
       "react/sort-comp": 1,
