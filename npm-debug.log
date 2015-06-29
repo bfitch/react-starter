@@ -10,13 +10,13 @@
 6 info dev react-starter@1.0.0
 7 verbose unsafe-perm in lifecycle true
 8 info react-starter@1.0.0 Failed to exec dev script
-9 error react-starter@1.0.0 dev: `webpack-dev-server -hot --devtool eval --progress --colors`
+9 error react-starter@1.0.0 dev: `webpack-dev-server --hot --devtool source-map --progress --colors --inline --history-api-fallback`
 9 error Exit status 8
 10 error Failed at the react-starter@1.0.0 dev script.
 10 error This is most likely a problem with the react-starter package,
 10 error not with npm itself.
 10 error Tell the author that this fails on your system:
-10 error     webpack-dev-server -hot --devtool eval --progress --colors
+10 error     webpack-dev-server --hot --devtool source-map --progress --colors --inline --history-api-fallback
 10 error You can get their info via:
 10 error     npm owner ls react-starter
 10 error There is likely additional logging output above.
