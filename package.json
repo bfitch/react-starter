@@ -41,6 +41,7 @@
     ],
     "parser": "babel-eslint",
     "rules": {
+      "camelcase": 0,
       "quotes": [
         1,
         "double",
