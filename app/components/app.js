@@ -1,38 +1,23 @@
 import React from "react";
 import Router from "react-router";
+import {root} from "baobab-react/decorators";
+import state from "../state";
 
-const Link         = Router.Link;
 const RouteHandler = Router.RouteHandler;
+const Link         = Router.Link;
 
-export class App extends React.Component {
+window.state = state.toJSON(); // for debugging
+
+@root(state)
+export default class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>App</h1>
-
-        <ul>
-          <li><Link to="about">About</Link></li>
-          <li><Link to="cool">Cool</Link></li>
-        </ul>
+        <h1><Link to="/">App</Link></h1>
+        <Link to="about">About</Link>
 
         <RouteHandler/>
       </div>
-    );
-  }
-}
-
-export class About extends React.Component {
-  render() {
-    return (
-      <h1>About</h1>
-    );
-  }
-}
-
-export class Cool extends React.Component {
-  render() {
-    return (
-      <h1>CCOOOOL</h1>
     );
   }
 }
