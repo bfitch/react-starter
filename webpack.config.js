@@ -18,7 +18,7 @@ module.exports = {
         exclude: /(node_modules|bower_components)/,
         loader: "babel",
         query: {
-          optional: ['runtime'],
+          optional: ["runtime"],
           stage: 0
         }
       }
