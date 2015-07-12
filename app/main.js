@@ -3,6 +3,7 @@ import Router from "react-router";
 import App from "./components/app";
 import About from "./components/about";
 import Details from "./components/details";
+import state from "./state";
 const Route = Router.Route;
 
 let routes = (
@@ -13,6 +14,7 @@ let routes = (
   </Route>
 );
 
-Router.run(routes, Router.HistoryLocation, function(Handler) {
+Router.run(routes, Router.HistoryLocation, function(Handler, State) {
+  state.select("activeRoute").merge(State);
   React.render(<Handler/>, document.getElementById("app"));
 });
