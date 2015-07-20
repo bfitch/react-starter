@@ -1,7 +1,7 @@
 import Baobab from "baobab";
 
 export default new Baobab({
-  list: ["foot", "nose", "elbow"]
+  messages: []
 },
 {
   syncwrite: true,

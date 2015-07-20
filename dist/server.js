@@ -14,6 +14,10 @@ var _morgan = require("morgan");
 
 var _morgan2 = _interopRequireDefault(_morgan);
 
+var _cors = require("cors");
+
+var _cors2 = _interopRequireDefault(_cors);
+
 var _fixturesMessageJson = require("../fixtures/message.json");
 
 var _fixturesMessageJson2 = _interopRequireDefault(_fixturesMessageJson);
@@ -22,12 +26,13 @@ var app = (0, _express2["default"])();
 var port = process.env.PORT || 8081;
 var router = _express2["default"].Router();
 
+app.use((0, _cors2["default"])());
 app.use(_bodyParser2["default"].urlencoded({ extended: true }));
 app.use(_bodyParser2["default"].json());
 app.use((0, _morgan2["default"])("combined"));
 
 router.get("/", function (req, res) {
-  res.json({ "mama": "gaaaa" });
+  res.json(_fixturesMessageJson2["default"]);
 });
 
 app.use("/api", router);

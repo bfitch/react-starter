@@ -7,7 +7,7 @@ const Link         = Router.Link;
 
 @branch({
   cursors: {
-    list: ["list"]
+    messages: ["messages"]
   }
 })
 export default class About extends React.Component {
@@ -16,9 +16,9 @@ export default class About extends React.Component {
       <div>
         <p>About Component</p>
         <ul>
-          {this.props.list.map(function(item) {
+          {this.props.messages.map(function(message) {
             return (
-              <li><Link to="details" params={{name: item}}>{item}</Link></li>
+              <li><Link to="details" params={message}>{message.title}</Link></li>
               );
             })
           }

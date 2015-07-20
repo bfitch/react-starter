@@ -8,7 +8,7 @@ const Route = Router.Route;
 let routes = (
   <Route path="/" handler={App}>
     <Route name="about" handler={About}>
-      <Route name="details" path=":name" handler={Details}/>
+      <Route name="details" path=":title" handler={Details}/>
     </Route>
   </Route>
 );
