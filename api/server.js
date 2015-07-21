@@ -6,14 +6,13 @@ const app    = express();
 const port   = process.env.PORT || 8081;
 const router = express.Router();
 
-import messages from "../fixtures/message.json";
-
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(morgan("combined"))
 
 router.get("/", function(req, res) {
+  let messages = require("../fixtures/message");
   res.json(messages);
 });
 
