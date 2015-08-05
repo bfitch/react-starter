@@ -1,3 +1,4 @@
+import poylfill from "babel/polyfill";
 import express from "express";
 import bodyParser from "body-parser";
 import morgan from "morgan";
@@ -9,14 +10,32 @@ const router = express.Router();
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-app.use(morgan("combined"))
+app.use(morgan("combined"));
+app.use("/api", router);
 
-router.get("/", function(req, res) {
+router.post("/messages", function(req, res) {
   let messages = require("../fixtures/message");
-  res.json(messages);
+  messages.push(req.body);
+  res.json(messages.pop());
 });
 
-app.use("/api", router);
+router.get("/messages", function(req, res) {
+  let messages = require("../fixtures/message");
+  res.json({messages: messages});
+});
+
+router.put("/messages/:id", function(req, res) {
+  let messages = require("../fixtures/message");
+  let i = messages.findIndex(message => message.id === parseInt(req.params.id));
+  messages[i] = Object.assign(messages[i],req.body);
+  res.json(messages[i]);
+});
+
+router.get("/messages/:id", function(req, res) {
+  let messages = require("../fixtures/message");
+  let msg = messages.find(message => message.id === parseInt(req.params.id));
+  res.json(msg);
+});
 
 app.listen(port);
 console.log("Magic happens on port " + port);

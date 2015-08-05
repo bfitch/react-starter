@@ -1,5 +1,4 @@
-module.exports = {
-  messages: [
+var messages = [
     {
       id: 1,
       title: "cool",
@@ -15,4 +14,4 @@ module.exports = {
       created_at: "1999"
     }
   ]
-};
+module.exports = messages;

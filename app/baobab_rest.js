@@ -29,6 +29,7 @@ function parseOptions(resource, action, options) {
   let ajaxOptions = {
     url: buildUrl(resource, id),
     method: buildMethod(action, id),
+    headers: {"Content-Type": "application/json"},
     params: params,
     data: data
   };
@@ -38,21 +39,28 @@ function parseOptions(resource, action, options) {
   return ajaxOptions;
 }
 
-function executeAjax(resource, action, options) {
-  const cursor  = state.select(resource);
+function executeAjax(resource, action, cursor, options) {
   const request = parseOptions(resource, action, options);
-
-  ajax(request)
-    .then((res) => cursor.push(res.data[resource]))
-    .catch((res) => cursor.set("errors", res.data.errors));
+  const promise = ajax(request).catch((res) => cursor.set("errors", res.data.errors));
+  return promise;
 }
 
 function fetch(resource, options={}) {
-  executeAjax(resource, "fetch", options);
+  let {id, params, data} = options;
+  const cursor  = state.select(resource);
+
+  executeAjax(resource, "fetch", cursor, options).then((res) =>
+    id ? cursor.push(res.data) : cursor.set(res.data[resource])
+  );
 }
 
 function save(resource, options={}) {
-  executeAjax(resource, "save", options);
+  let {id, params, data} = options;
+  const cursor  = state.select(resource);
+
+  executeAjax(resource, "save", cursor, options).then((res) =>
+    id ? cursor.select({id: id}).merge(res.data) : cursor.push(res.data)
+  );
 }
 
 function destroy(resource, options={}) {
