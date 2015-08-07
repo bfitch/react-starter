@@ -60,3 +60,26 @@ destroy("todos", 2, options)
 destroy("todos", data, options)
 
 fetch("todos", options)
+
+{
+  todos: {
+    data: [],
+    isLoading: {
+      fetch: false,
+      save: false,
+      destroy: false
+    },
+    validationErrors: {
+      title: "must not be blank"
+    },
+    responseErrors: []
+  }
+}
+
+baobab-rest lets you:
+
+(1) Syncronize Baobab data with REST resources
+(2) Set loading/loaded states for each resource
+(3) Perform and set client validations and rollbacks
+(4) Set server validations and expose them to views
+(5) Set any exceptions or errors
