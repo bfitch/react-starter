@@ -1,3 +1,4 @@
+import poylfill from "babel/polyfill";
 import ajax from "axios";
 import state from "./state";
 
@@ -47,16 +48,17 @@ function executeAjax(resource, action, cursor, options) {
 
 function fetch(resource, options={}) {
   let {id, params, data} = options;
-  const cursor  = state.select(resource);
+  const cursor = state.select(resource);
 
   executeAjax(resource, "fetch", cursor, options).then((res) =>
+    // this is dumb, don't push a duplicate record into baobab
     id ? cursor.push(res.data) : cursor.set(res.data[resource])
   );
 }
 
 function save(resource, options={}) {
   let {id, params, data} = options;
-  const cursor  = state.select(resource);
+  const cursor = state.select(resource);
 
   executeAjax(resource, "save", cursor, options).then((res) =>
     id ? cursor.select({id: id}).merge(res.data) : cursor.push(res.data)
@@ -64,7 +66,14 @@ function save(resource, options={}) {
 }
 
 function destroy(resource, options={}) {
-  executeAjax(resource, "delete", options);
+  let {id, params, data} = options;
+  const cursor = state.select(resource);
+
+  executeAjax(resource, "delete", cursor, options).then(() => {
+    let resourceArray = cursor.get();
+    let index = resourceArray.findIndex(item => item.id === id);
+    cursor.splice([index, 1]);
+  });
 }
 
 export {fetch, save, destroy};

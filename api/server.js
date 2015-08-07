@@ -13,10 +13,11 @@ app.use(bodyParser.json());
 app.use(morgan("combined"));
 app.use("/api", router);
 
-router.post("/messages", function(req, res) {
+router.post("/messages", function(req, res, next) {
   let messages = require("../fixtures/message");
   messages.push(req.body);
   res.json(messages.pop());
+  next();
 });
 
 router.get("/messages", function(req, res) {
@@ -24,11 +25,20 @@ router.get("/messages", function(req, res) {
   res.json({messages: messages});
 });
 
-router.put("/messages/:id", function(req, res) {
+router.delete("/messages/:id", function(req, res, next) {
   let messages = require("../fixtures/message");
   let i = messages.findIndex(message => message.id === parseInt(req.params.id));
-  messages[i] = Object.assign(messages[i],req.body);
+  messages.splice(i, 1);
+  res.json({});
+  next();
+});
+
+router.put("/messages/:id", function(req, res, next) {
+  let messages = require("../fixtures/message");
+  let i = messages.findIndex(message => message.id === parseInt(req.params.id));
+  messages[i] = Object.assign(messages[i], req.body);
   res.json(messages[i]);
+  next();
 });
 
 router.get("/messages/:id", function(req, res) {

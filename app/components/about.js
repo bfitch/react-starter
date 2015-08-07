@@ -1,7 +1,7 @@
 import React from "react";
 import Router from "react-router";
 import {branch} from "baobab-react/decorators";
-import {fetch, save} from "../baobab_rest";
+import {fetch, save, destroy} from "../baobab_rest";
 
 const RouteHandler = Router.RouteHandler;
 const Link         = Router.Link;
@@ -19,7 +19,13 @@ export default class About extends React.Component {
 
   saveMessage(event) {
     event.preventDefault();
-    save("messages", { data: {title: this.state.title} });
+    save("messages", {
+      id: 1,
+      data: {
+        title: "boomp"
+      }
+    });
+
     React.findDOMNode(this.refs.input).value = "";
   }
 

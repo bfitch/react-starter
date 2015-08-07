@@ -1,0 +1,62 @@
+(1) library wide config
+(2) per cursor config
+(3) per method call config
+
+Return:
+
+.then((cursor, response) => {
+  if (response.ok) {
+    // do something
+  else {
+    // do something else
+  }
+});
+
+or 
+.catch((exception) => {
+  // log exception;
+})
+
+// implicit id
+// save(cursor, data, options)
+
+//if `identifier` is in `data` => PUT
+//else POST
+
+options =  {
+  resource: "cool_todos",
+  prefix: "vendor",
+  host: "http://bob.com",
+  url: "http://cool.com/cool-todos"
+  identifier: "guid",
+  loadingIndicator: true,
+  setErrors: true
+};
+
+save("todos", {  // => PUT
+  id: 1
+  title: "foo",
+  completed: false
+  }, {
+    resource: "todonots"
+});
+
+save("todos", {  // => POST
+  title: "foo",
+  completed: false
+  }, {
+    url: "http://todonots.com"
+});
+
+// explicit id
+// save(cursor, identifier, data, options)
+
+save("todos", 1, data)
+
+// explicit
+destroy("todos", 2, options)
+
+//implicit
+destroy("todos", data, options)
+
+fetch("todos", options)
