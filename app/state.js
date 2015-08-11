@@ -1,7 +1,12 @@
 import Baobab from "baobab";
 
 export default new Baobab({
-  messages: []
+  messages: {
+    data: [],
+    isLoading: false,
+    validationErrors: {},
+    responseErrors: []
+  }
 },
 {
   syncwrite: true,

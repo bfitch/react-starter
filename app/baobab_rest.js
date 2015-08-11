@@ -49,16 +49,21 @@ function executeAjax(resource, action, cursor, options) {
 function fetch(resource, options={}) {
   let {id, params, data} = options;
   const cursor = state.select(resource);
+  let dataCursor = cursor.select("data");
 
-  executeAjax(resource, "fetch", cursor, options).then((res) =>
+  cursor.set("isLoading", true);
+
+  executeAjax(resource, "fetch", cursor, options).then((res) => {
+    cursor.set("isLoading", false);
+
     // this is dumb, don't push a duplicate record into baobab
-    id ? cursor.push(res.data) : cursor.set(res.data[resource])
-  );
+    dataCursor.set(res.data[resource]);
+  });
 }
 
 function save(resource, options={}) {
   let {id, params, data} = options;
-  const cursor = state.select(resource);
+  const cursor = state.select(resource, "data");
 
   executeAjax(resource, "save", cursor, options).then((res) =>
     id ? cursor.select({id: id}).merge(res.data) : cursor.push(res.data)
@@ -67,7 +72,7 @@ function save(resource, options={}) {
 
 function destroy(resource, options={}) {
   let {id, params, data} = options;
-  const cursor = state.select(resource);
+  const cursor = state.select(resource, "data");
 
   executeAjax(resource, "delete", cursor, options).then(() => {
     let resourceArray = cursor.get();

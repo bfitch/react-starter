@@ -8,23 +8,19 @@ const Link         = Router.Link;
 
 @branch({
   cursors: {
-    messages: ["messages"]
+    messages: ["messages", "data"],
+    isLoading: ["messages", "isLoading"]
   }
 })
 export default class About extends React.Component {
-  constructor(args) {
-    super(args);
+  constructor(props) {
+    super(props);
     this.state = {title: ""};
   }
 
   saveMessage(event) {
     event.preventDefault();
-    save("messages", {
-      id: 1,
-      data: {
-        title: "boomp"
-      }
-    });
+    fetch("messages");
 
     React.findDOMNode(this.refs.input).value = "";
   }
@@ -41,7 +37,7 @@ export default class About extends React.Component {
         <input type="text" onChange={this.getValue.bind(this)} ref="input" />
         <button onClick={e => this.saveMessage(e)}>Save</button>
 
-        <ul>
+        <ul style={this.props.isLoading ? {backgroundColor: "red"} : {}}>
           {this.props.messages.map(function(message) {
             return (
               <li><Link to="details" params={message}>{message.title}</Link></li>
