@@ -1,27 +1,20 @@
 import React from "react";
 import Router from "react-router";
-import {root} from "baobab-react/decorators";
-import state from "../state";
-import {fetch} from "../baobab_rest";
-// import ajax from "axios";
+import {Decorator as Cerebral} from 'cerebral-react-immutable-store';
 
-const RouteHandler = Router.RouteHandler;
-const Link         = Router.Link;
-
-window.state = state; // for debugging
-
-fetch("messages");
-
-@root(state)
+@Cerebral({
+  messages: ['messages']
+})
 export default class App extends React.Component {
+  componentDidMount() {
+    this.props.signals.appMounted();
+  }
+
   render() {
     return (
-      <div>
-        <h1><Link to="/">App</Link></h1>
-        <Link to="about">About</Link>
-
-        <RouteHandler/>
-      </div>
+      <ul>
+        {this.props.messages.map((message) => <li key={message.id}>{message.title}</li>)}
+      </ul>
     );
   }
 }

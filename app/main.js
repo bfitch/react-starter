@@ -1,18 +1,16 @@
 import React from "react";
-import Router from "react-router";
+import controller from './controller';
+import {loadMessages} from "./actions/api";
+import {setMessages, setError} from "./actions/state";
 import App from "./components/app";
-import About from "./components/about";
-import Details from "./components/details";
-const Route = Router.Route;
 
-let routes = (
-  <Route path="/" handler={App}>
-    <Route name="about" handler={About}>
-      <Route name="details" path=":title" handler={Details}/>
-    </Route>
-  </Route>
+controller.signal('appMounted',
+  [
+    loadMessages, {
+      success: setMessages,
+      error: setError
+    }
+  ]
 );
 
-Router.run(routes, Router.HistoryLocation, function(Handler) {
-  React.render(<Handler/>, document.getElementById("app"));
-});
+React.render(controller.injectInto(App), document.getElementById("app"));
