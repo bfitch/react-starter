@@ -1,5 +1,5 @@
-function loadMessages(input, state, output) {
-  input.utils.ajax.get('http://localhost:8081/api/messages')
+function loadMessages(input, state, output, {ajax}) {
+  ajax.get('http://localhost:8081/api/messages')
     .then((response) => {
       output.success({messages: response.data.messages});
     })

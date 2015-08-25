@@ -1,4 +1,4 @@
-function setMessages(input, state, output) {
+function setMessages(input, state, output, services) {
   state.set('messages', input.messages);
 }
 
