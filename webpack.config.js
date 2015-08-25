@@ -2,7 +2,8 @@
 
 module.exports = {
   entry: {
-    app: ["webpack/hot/dev-server", "./app/main.js"]
+    // app: ["webpack/hot/dev-server", "./app/main.js"]
+    app: ["./app/main.js"]
   },
   output: {
     filename: "dist/bundle.js"

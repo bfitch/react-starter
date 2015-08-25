@@ -1,20 +1,28 @@
-import React from "react";
-import Router from "react-router";
-import {Decorator as Cerebral} from 'cerebral-react-immutable-store';
+import React from 'react';
+import mui from 'material-ui';
+const ThemeManager = new mui.Styles.ThemeManager();
+const RaisedButton = mui.RaisedButton;
+const AppBar       = mui.AppBar;
 
-@Cerebral({
-  messages: ['messages']
-})
-export default class App extends React.Component {
-  componentDidMount() {
-    this.props.signals.appMounted();
+class App extends React.Component {
+  getChildContext() {
+    return {
+      muiTheme: ThemeManager.getCurrentTheme()
+    };
   }
 
   render() {
     return (
-      <ul>
-        {this.props.messages.map((message) => <li key={message.id}>{message.title}</li>)}
-      </ul>
+      <div>
+        <AppBar title="Title" />
+        <RaisedButton label="Super Secret Password" primary={true} />
+      </div>
     );
   }
 }
+
+App.childContextTypes = {
+  muiTheme: React.PropTypes.object
+};
+
+export default App;

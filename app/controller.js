@@ -1,12 +1,6 @@
-import Controller from "cerebral-react-immutable-store";
-import axios from "axios";
-
-
-let state = {
-  messages: [],
-  isLoading: false,
-  error: {}
-};
+import Controller from 'cerebral-react-immutable-store';
+import state from './state';
+import axios from 'axios';
 
 let defaultInput = {
   utils: {

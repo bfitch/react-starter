@@ -4,7 +4,7 @@
   "description": "Starter for React",
   "main": "",
   "scripts": {
-    "dev": "webpack-dev-server --hot --devtool source-map --progress --colors --inline --history-api-fallback",
+    "dev": "webpack-dev-server --devtool source-map --progress --colors --inline --history-api-fallback",
     "server-watch": "./node_modules/.bin/babel api -d dist --experimental -w -s",
     "server": "nodemon dist/server.js",
     "server-dev": "npm run server-watch & npm run server",
@@ -13,10 +13,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cerebral-react-immutable-store": "^0.5.1",
-    "immutable-store": "^0.5.2",
-    "react": "^0.13.3",
-    "react-router": "^0.13.3"
+    "material-ui": "^0.10.4",
+    "react-tap-event-plugin": "^0.1.7",
+    "reactive-router": "git://github.com/christianalfoni/reactive-router.git#add_rackt_history"
   },
   "devDependencies": {
     "axios": "^0.5.4",
