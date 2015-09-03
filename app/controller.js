@@ -7,6 +7,4 @@ const services = {
   ajax: axios
 };
 
-const model = Model(state);
-
-export default Controller(model, services);
+export default Controller(Model(state), services);
