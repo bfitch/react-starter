@@ -4,7 +4,7 @@ import controller from './controller';
 import {loadMessages} from './actions/api';
 import {setMessages, setError} from './actions/state';
 import App from './components/app';
-import Router from 'reactive-router';
+import Router from 'cerebral-router';
 
 controller.signal('rootRouted',
   [
@@ -15,11 +15,9 @@ controller.signal('rootRouted',
   ]
 );
 
-const router = Router({
-  '/': controller.signals.rootRouted
-});
-
-router.listen();
+Router(controller, {
+  '/': 'rootRouted'
+}).start();
 
 React.render(
   <Container controller={controller} app={App}/>,
