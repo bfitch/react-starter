@@ -3,7 +3,11 @@ function setMessages(input, state, output, services) {
 }
 
 function setError(input, state, output) {
-  state.set('error', 'error');
+  state.set('error', input);
 }
 
-export {setMessages, setError};
+function setCurrentUser(input, state, output) {
+  state.set('currentUser', input.userData);
+}
+
+export {setMessages, setError, setCurrentUser};

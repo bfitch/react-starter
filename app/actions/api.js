@@ -4,7 +4,7 @@ function loadMessages(input, state, output, {ajax}) {
       output.success({messages: response.data.messages});
     })
     .catch((response) => {
-      output.error({error: response});
+      output.error(response);
     });
 }
 

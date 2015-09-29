@@ -1,0 +1,23 @@
+2015-09-15T21:40:56.056885000 0.519860s notice: Recursively removing directory /Users/brian/projects/react-starter/rethinkdb_data/tmp
+2015-09-15T21:40:56.059864000 0.522844s notice: Initializing directory /Users/brian/projects/react-starter/rethinkdb_data
+2015-09-15T21:40:56.060004000 0.522977s info: Creating a default database for your convenience. (This is because you ran 'rethinkdb' without 'create', 'serve', or '--join', and the directory '/Users/brian/projects/react-starter/rethinkdb_data' did not already exist or is empty.)
+2015-09-15T21:40:56.060940000 0.523914s notice: Running rethinkdb 2.1.3 (CLANG 6.1.0 (clang-602.0.53))...
+2015-09-15T21:40:56.067408000 0.530383s notice: Running on Darwin 14.4.0 x86_64
+2015-09-15T21:40:56.067474000 0.530447s notice: Loading data from directory /Users/brian/projects/react-starter/rethinkdb_data
+2015-09-15T21:40:56.239153000 0.702126s info: Automatically using cache size of 100 MB
+2015-09-15T21:40:56.239164000 0.702137s warn: Cache size does not leave much memory for server and query overhead (available memory: 277 MB).
+2015-09-15T21:40:56.239172000 0.702145s warn: Cache size is very low and may impact performance.
+2015-09-15T21:40:56.241085000 0.704058s notice: Listening for intracluster connections on port 29015
+2015-09-15T21:40:56.250957000 0.713930s notice: Listening for client driver connections on port 28015
+2015-09-15T21:40:56.251477000 0.714450s notice: Listening for administrative HTTP connections on port 8080
+2015-09-15T21:40:56.251482000 0.714455s notice: Listening on addresses: 127.0.0.1, ::1
+2015-09-15T21:40:56.251484000 0.714456s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2015-09-15T21:40:56.251487000 0.714460s notice: Server ready, "Master_local_o4o" 33ceae11-fe64-48e1-9301-02342336886b
+2015-09-15T21:45:04.615444000 249.082515s info: Table 9d5d758c-df00-4b6f-8d34-3bb609635ace: Added replica on this server.
+2015-09-15T21:45:05.688883000 250.155972s info: Table 9d5d758c-df00-4b6f-8d34-3bb609635ace: Starting a new Raft election for term 1.
+2015-09-15T21:45:05.712003000 250.179110s info: Table 9d5d758c-df00-4b6f-8d34-3bb609635ace: This server is Raft leader for term 1. Latest log index is 0.
+2015-09-15T23:58:39.594136000 8264.193526s notice: Server got SIGINT from pid 453, uid 503; shutting down...
+2015-09-15T23:58:39.594686000 8264.194075s notice: Shutting down client connections...
+2015-09-15T23:58:39.594898000 8264.194288s notice: All client connections closed.
+2015-09-15T23:58:39.594910000 8264.194299s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2015-09-15T23:58:39.614347000 8264.213737s notice: Storage engine shut down.
