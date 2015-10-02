@@ -10,4 +10,8 @@ function setCurrentUser(input, state, output) {
   state.set('currentUser', input.userData);
 }
 
-export {setMessages, setError, setCurrentUser};
+function setMessageText(input, state, output) {
+  state.set('messageText', input.text);
+}
+
+export {setMessages, setError, setCurrentUser, setMessageText};

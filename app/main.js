@@ -5,7 +5,7 @@ import {Container} from 'cerebral-react';
 import controller from './controller';
 import App from './components/app';
 import {loadMessages} from './actions/api';
-import {setCurrentUser, setMessages, setError} from './actions/state';
+import {setCurrentUser, setMessages, setError, setMessageText} from './actions/state';
 import {login, verifyToken, loadAccessToken, setAccessToken, getUserData} from './actions/auth';
 
 let loadAccessTokenAction = [
@@ -51,8 +51,7 @@ let loadAccessTokenAction = [
 ]
 
 controller.signal('rootRouted', loadAccessTokenAction);
-
-controller.signal('viewMessagesClicked',
+controller.signal('viewMessages',
   [
     loadMessages, {
       success: [setMessages],
@@ -60,9 +59,11 @@ controller.signal('viewMessagesClicked',
     }
   ]
 );
+controller.signal('messageTextEntered', setMessageText);
 
 Router(controller, {
-  '/': 'rootRouted'
+  '/': 'rootRouted',
+  '/messages': 'viewMessages'
 }).trigger();
 
 ReactDOM.render(
