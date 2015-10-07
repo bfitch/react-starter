@@ -2,11 +2,11 @@ import Controller from 'cerebral';
 import Model from 'cerebral-baobab';
 import state from './state';
 import axios from 'axios';
-import hellojs from 'hellojs';
+import OAuth from '../vendor/oauth';
 
 const services = {
   ajax: axios,
-  hello: hellojs,
+  oauthd: window.OAuth,
   localStorage: window.localStorage
 };
 

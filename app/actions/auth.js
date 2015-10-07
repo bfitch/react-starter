@@ -1,15 +1,17 @@
-async function login(input, state, output, {hello}) {
-  hello.init({
-    google: '156701363240-8ah4jrt0bek2mt7a1dpqtih1rdo0gnn3.apps.googleusercontent.com'
-  });
+function login(input, state, output, {oauthd}) {
+  oauthd.initialize('Eg0kHloT3jsrLv7bAxR_hV7FGF0');
+  oauthd.setOAuthdURL('http://localhost:6284');
+  oauthd.redirect('snowflake', '/oauthd_callback');
+}
 
-  try {
-    let response = await hello.login('google');
-    output.success({accessToken: response.authResponse.access_token});
-
-  } catch (error) {
-    output.error(error);
-  }
+function getAccessToken(input, state, output, {oauthd}) {
+  oauthd.callback('snowflake')
+    .done((response) => {
+      output.success({accessToken: response.access_token});
+    })
+    .fail((error) => {
+      output.error({error: error.toString()});
+    });
 }
 
 function setAccessToken(input, state, output, {localStorage}) {
@@ -20,14 +22,14 @@ function setAccessToken(input, state, output, {localStorage}) {
   output({accessToken: token});
 }
 
-async function getUserData(input, state, output, {hello}) {
-  try {
-    let userData = await hello('google').api('me');
-    output.success({userData: userData});
-
-  } catch (error) {
-    output.error(error);
-  }
+function getUserData(input, state, output, {ajax}) {
+  ajax.get('http://snowflake.dev/api/v1/me.json', {headers: {'Authorization': `Bearer ${input.accessToken}`}})
+    .then((response) => {
+      output.success({userData: response.data});
+    })
+    .catch((error) => {
+      output.error({error: error.toString()});
+    });
 }
 
 function loadAccessToken(input, state, output, {localStorage}) {
@@ -41,23 +43,18 @@ function loadAccessToken(input, state, output, {localStorage}) {
 }
 loadAccessToken.outputs = ['tokenFound', 'tokenNotFound'];
 
-async function verifyToken(input, state, output, {ajax}) {
-  try {
-    let response = await ajax.get(
-      `https://www.googleapis.com/oauth2/v1/tokeninfo` +
-      `?access_token=${input.accessToken}`
-    );
-
-    if (response.status === 200) {
+function verifyToken(input, state, output, {ajax}) {
+  ajax.get(`http://snowflake.dev/api/v1/verify?access_token=${input.accessToken}`)
+    .then((response) => {
       output.tokenValid();
-    }
-  } catch (error) {
-    if (error.status === 400) {
-      output.tokenInvalid();
-    } else {
-      output.error(error);
-    }
-  }
+    })
+    .catch((response) => {
+      if (response.status === 403) {
+        output.tokenInvalid();
+      } else {
+        output.error(response.data);
+      }
+    })
 }
 verifyToken.outputs = ['tokenInvalid', 'tokenValid'];
 
@@ -66,5 +63,6 @@ export {
   verifyToken,
   loadAccessToken,
   setAccessToken,
-  getUserData
+  getUserData,
+  getAccessToken
 };

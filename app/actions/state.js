@@ -3,7 +3,7 @@ function setMessages(input, state, output, services) {
 }
 
 function setError(input, state, output) {
-  state.set('error', input);
+  state.set('error', input.error);
 }
 
 function setCurrentUser(input, state, output) {

@@ -4,7 +4,7 @@
   "description": "Starter for React",
   "main": "",
   "scripts": {
-    "dev": "webpack-dev-server --devtool source-map --progress --colors --inline --history-api-fallback",
+    "dev": "webpack-dev-server --devtool source-map --progress --colors --history-api-fallback",
     "server-watch": "./node_modules/.bin/babel api -d dist --experimental -w -s",
     "server": "nodemon dist/server.js",
     "server-dev": "npm run server-watch & npm run server",
