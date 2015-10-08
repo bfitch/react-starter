@@ -1,5 +1,6 @@
-function loadMessages(input, state, output, {ajax}) {
-  ajax.get('http://localhost:8081/api/messages')
+function fetchConversations(input, state, output, {ajax}) {
+  debugger 
+  ajax.get(`http://postmaster.dev/api/v1/conversations?practice_user_uid=${uid}`)
     .then((response) => {
       output.success({messages: response.data.messages});
     })
@@ -8,4 +9,4 @@ function loadMessages(input, state, output, {ajax}) {
     });
 }
 
-export {loadMessages};
+export {fetchConversations};

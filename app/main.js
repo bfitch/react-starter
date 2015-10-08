@@ -4,29 +4,26 @@ import Router from 'cerebral-router';
 import {Container} from 'cerebral-react';
 import controller from './controller';
 import App from './components/app';
-import {loadMessages} from './actions/api';
 import {setCurrentUser, setMessages, setError, setMessageText} from './actions/state';
 import {login, verifyToken, loadAccessToken, setAccessToken, getUserData, getAccessToken} from './actions/auth';
+import {fetchConversations} from './actions/api';
 
 let loadAccessTokenAction = [
   loadAccessToken, {
     tokenFound: [
       [verifyToken, {
-        tokenInvalid: [
-          Router.redirect('/login')
-        ],
+        tokenInvalid: [Router.redirect('/login')],
         tokenValid: [
           [getUserData, {
             success: [setCurrentUser],
             error: [setError]
-          }]
+          }],
+          Router.redirect('/my-conversations')
         ],
         error: [setError]
       }]
     ],
-    tokenNotFound: [
-      Router.redirect('/login')
-    ]
+    tokenNotFound: [Router.redirect('/login')]
   }
 ]
 
@@ -40,17 +37,25 @@ let getAccessTokenAction = [
   }
 ]
 
+let myConversationsAction = [
+  fetchConversations
+]
+
 controller.signal('rootRouted', loadAccessTokenAction);
 controller.signal('loginRouted', login);
 controller.signal('oauthdCallbackRouted', getAccessTokenAction);
+controller.signal('myConversationsRouted', myConversationsAction);
 
 Router(controller, {
   '/':               'rootRouted',
   '/login':          'loginRouted',
-  '/oauthd_callback': 'oauthdCallbackRouted'
+  '/oauthd_callback': 'oauthdCallbackRouted',
+  '/my-conversations': 'myConversationsRouted'
 }).trigger();
 
 ReactDOM.render(
-  <Container controller={controller} app={App}/>,
+  <Container controller={controller}>
+    <App/>
+  </Container>,
   document.getElementById('app')
 );

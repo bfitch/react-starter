@@ -1,34 +1,69 @@
 import React from 'react';
 import {Decorator as Cerebral} from 'cerebral-react';
-import '../styles/app.css';
+// import '../styles/app.css';
 
 @Cerebral({
-  currentUser: ['currentUser'],
   url: ['url']
 })
 class App extends React.Component {
-  loginClicked(event) {
-    this.props.signals.loginClicked();
-  }
-
-  fullName() {
-    return `${this.props.currentUser.first_name} ${this.props.currentUser.last_name}`;
+  renderPage() {
+    switch (this.props.url) {
+      case '/my-conversations':
+        return <ConversationList/>;
+    }
   }
 
   render() {
     return (
       <div>
-        <nav className="navbar row">
-          <div className="hamburger u-pull-left"><i className="fa fa-bars fa-color-white fa-2x"></i></div>
-          <div className="createTransaction u-pull-right"><i className="fa fa-plus-square fa-color-white fa-2x"></i></div>
-        </nav>
-        <div className="row">
-          <p>{this.fullName()}</p>
-          <p>{this.props.currentUser.email}</p>
+        {this.renderPage()}
+      </div>
+    );
+  }
+}
+
+class ConversationList extends React.Component {
+  render() {
+    return (
+      <div>
+        <Toolbar/>
+        <div className="conversations-list">
+          <p>Conversation List</p>
+          {/*
+          {{#if model.length}}
+            {{#each}}
+              {{partial 'conversation'}}
+            {{/each}}
+          {{else}}
+            <div class="no-conversations-to-display">
+              <p>No conversations to display</p>
+            </div>
+          {{/if}}
+        */}
         </div>
-        <div className="row">
-          <button onClick={this.loginClicked.bind(this)}>Login</button>
+      </div>
+    );
+  }
+}
+
+class Toolbar extends React.Component {
+  render() {
+    return (
+      <div className="toolbar">
+      {/*
+        {{ember-selectize
+          content=controller.practiceUsers
+          optionValuePath="content.uid"
+          optionLabelPath="content.full_name"
+          selection=selectedPracticeUser}}
+
+        <div class="toolbar__search-tip">
+          <div class="toolbar__search-tip__flex"></div>
+          <p>
+            Tip: Press the delete key to clear the selected name and search for a different staff member
+          </p>
         </div>
+      */}
       </div>
     );
   }
