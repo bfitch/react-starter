@@ -14,6 +14,13 @@ function getAccessToken(input, state, output, {oauthd}) {
     });
 }
 
+function setAjaxBearerToken(input, state, output, {ajax}) {
+  ajax.interceptors.request.use(function (config) {
+    config.headers = {'Authorization': `Bearer ${input.accessToken}`};
+    return config;
+  });
+}
+
 function setAccessToken(input, state, output, {localStorage}) {
   let token = input.accessToken;
 
@@ -23,7 +30,7 @@ function setAccessToken(input, state, output, {localStorage}) {
 }
 
 function getUserData(input, state, output, {ajax}) {
-  ajax.get('http://snowflake.dev/api/v1/me.json', {headers: {'Authorization': `Bearer ${input.accessToken}`}})
+  ajax.get('http://snowflake.dev/api/v1/me.json')
     .then((response) => {
       output.success({userData: response.data});
     })
@@ -64,5 +71,6 @@ export {
   loadAccessToken,
   setAccessToken,
   getUserData,
-  getAccessToken
+  getAccessToken,
+  setAjaxBearerToken
 };

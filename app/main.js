@@ -4,8 +4,8 @@ import Router from 'cerebral-router';
 import {Container} from 'cerebral-react';
 import controller from './controller';
 import App from './components/app';
-import {setCurrentUser, setMessages, setError, setMessageText} from './actions/state';
-import {login, verifyToken, loadAccessToken, setAccessToken, getUserData, getAccessToken} from './actions/auth';
+import {setCurrentUser, setConversations, setError} from './actions/state';
+import {login, verifyToken, loadAccessToken, setAccessToken, getUserData, getAccessToken, setAjaxBearerToken} from './actions/auth';
 import {fetchConversations} from './actions/api';
 
 let loadAccessTokenAction = [
@@ -14,6 +14,7 @@ let loadAccessTokenAction = [
       [verifyToken, {
         tokenInvalid: [Router.redirect('/login')],
         tokenValid: [
+          setAjaxBearerToken,
           [getUserData, {
             success: [setCurrentUser],
             error: [setError]
@@ -38,7 +39,10 @@ let getAccessTokenAction = [
 ]
 
 let myConversationsAction = [
-  fetchConversations
+  fetchConversations, {
+    success: [setConversations],
+    error: [setError]
+  }
 ]
 
 controller.signal('rootRouted', loadAccessTokenAction);

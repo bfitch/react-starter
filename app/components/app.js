@@ -22,26 +22,42 @@ class App extends React.Component {
   }
 }
 
+@Cerebral({
+  conversations: ['conversations']
+})
 class ConversationList extends React.Component {
+  renderConversations() {
+    if (this.props.conversations) {
+      return (
+        <ul>
+        {this.props.conversations.map((conversation) => <Conversation conversation={conversation}/>)}
+        </ul>
+      );
+    } else {
+      return (
+        <div className="no-conversations-to-display">
+          <p>No conversations to display</p>
+        </div>
+      );
+    }
+  }
+
   render() {
     return (
       <div>
         <Toolbar/>
         <div className="conversations-list">
-          <p>Conversation List</p>
-          {/*
-          {{#if model.length}}
-            {{#each}}
-              {{partial 'conversation'}}
-            {{/each}}
-          {{else}}
-            <div class="no-conversations-to-display">
-              <p>No conversations to display</p>
-            </div>
-          {{/if}}
-        */}
+          {this.renderConversations()}
         </div>
       </div>
+    );
+  }
+}
+
+class Conversation extends React.Component {
+  render() {
+    return (
+      <li>{this.props.conversation.subject}</li>
     );
   }
 }

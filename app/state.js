@@ -9,9 +9,23 @@ const currentPracticeUser = Model.monkey({
   }
 });
 
+const uid = Model.monkey({
+  cursors: {
+    currentPracticeUser: ['currentPracticeUser']
+  },
+  get(data) {
+    if (data.currentPracticeUser) {
+      return data.currentPracticeUser.uid;
+    }
+  }
+});
+
 export default {
-  currentUser: {},
+  currentUser: {
+    practice_users: []
+  },
   currentPracticeUser: currentPracticeUser,
+  currentPracticeUserUid: uid,
   isLoading: false,
   error: {}
 };
