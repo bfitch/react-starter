@@ -1,31 +1,26 @@
 import Model from 'cerebral-baobab';
 
-const currentPracticeUser = Model.monkey({
-  cursors: {
-    practiceUsers: ['currentUser', 'practice_users']
+const computed = {
+  currentPracticeUser: function(get) {
+    return get(['currentUser', 'practice_users']).find((practiceUser) => practiceUser.default);
   },
-  get(data) {
-    return data.practiceUsers.find((practiceUser) => practiceUser.default);
-  }
-});
 
-const uid = Model.monkey({
-  cursors: {
-    currentPracticeUser: ['currentPracticeUser']
+  currentPracticeUserUid: function(get, getComputed) {
+    return getComputed(['currentPracticeUser']).uid;
   },
-  get(data) {
-    if (data.currentPracticeUser) {
-      return data.currentPracticeUser.uid;
-    }
-  }
-});
 
-export default {
-  currentUser: {
-    practice_users: []
-  },
-  currentPracticeUser: currentPracticeUser,
-  currentPracticeUserUid: uid,
+  isNewConversation: function(get, getComputed) {
+    debugger
+    return get(['conversations', 'read_by_uids']).every((uid) => {
+      uid !== getComputed(['currentPracticeUserUid']);
+    });
+  }
+};
+
+let state = {
+  conversations: [],
   isLoading: false,
   error: {}
 };
+
+export {state, computed};

@@ -7,7 +7,7 @@ function setError(input, state, output) {
 }
 
 function setCurrentUser(input, state, output) {
-  state.set('currentUser', input.userData);
+  state.set('currentUser', input.currentUser);
 }
 
 export {setConversations, setError, setCurrentUser};

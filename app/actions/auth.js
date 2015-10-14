@@ -14,11 +14,9 @@ function getAccessToken(input, state, output, {oauthd}) {
     });
 }
 
-function setAjaxBearerToken(input, state, output, {ajax}) {
-  ajax.interceptors.request.use(function (config) {
-    config.headers = {'Authorization': `Bearer ${input.accessToken}`};
-    return config;
-  });
+function setAjaxBearerToken(input, state, output, services) {
+  const token = services.localStorage.getItem('accessToken');
+  services.cachejax.setAuthorization(token);
 }
 
 function setAccessToken(input, state, output, {localStorage}) {
@@ -29,10 +27,10 @@ function setAccessToken(input, state, output, {localStorage}) {
   output({accessToken: token});
 }
 
-function getUserData(input, state, output, {ajax}) {
-  ajax.get('http://snowflake.dev/api/v1/me.json')
+function getUserData(input, state, output, {cachejax}) {
+  cachejax.get('currentUser')
     .then((response) => {
-      output.success({userData: response.data});
+      output.success({currentUser: response.data});
     })
     .catch((error) => {
       output.error({error: error.toString()});
@@ -50,8 +48,8 @@ function loadAccessToken(input, state, output, {localStorage}) {
 }
 loadAccessToken.outputs = ['tokenFound', 'tokenNotFound'];
 
-function verifyToken(input, state, output, {ajax}) {
-  ajax.get(`http://snowflake.dev/api/v1/verify?access_token=${input.accessToken}`)
+function verifyToken(input, state, output, {cachejax}) {
+  cachejax.get(`http://snowflake.dev/api/v1/verify?access_token=${input.accessToken}`)
     .then((response) => {
       output.tokenValid();
     })

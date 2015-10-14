@@ -29,24 +29,24 @@ let loadAccessTokenAction = [
 ]
 
 let getAccessTokenAction = [
-  getAccessToken, {
+  [getAccessToken, {
     success: [
       setAccessToken,
       Router.redirect('/')
     ],
     error: [setError]
-  }
+  }]
 ]
 
 let myConversationsAction = [
-  fetchConversations, {
+  [fetchConversations, {
     success: [setConversations],
     error: [setError]
-  }
+  }]
 ]
 
 controller.signal('rootRouted', loadAccessTokenAction);
-controller.signal('loginRouted', login);
+controller.signal('loginRouted', [login]);
 controller.signal('oauthdCallbackRouted', getAccessTokenAction);
 controller.signal('myConversationsRouted', myConversationsAction);
 
@@ -58,8 +58,6 @@ Router(controller, {
 }).trigger();
 
 ReactDOM.render(
-  <Container controller={controller}>
-    <App/>
-  </Container>,
+  <Container controller={controller}><App/></Container>,
   document.getElementById('app')
 );

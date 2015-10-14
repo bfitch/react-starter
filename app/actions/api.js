@@ -1,7 +1,7 @@
-function fetchConversations(input, state, output, {ajax}) {
-  const uid = state.get('currentPracticeUserUid');
+function fetchConversations(input, state, output, {cachejax}) {
+  const uid = state.getComputed(['currentPracticeUserUid']);
 
-  ajax.get(`http://postmaster.dev/api/v1/conversations?practice_user_uid=${uid}`)
+  cachejax.get('conversations', {practice_user_uid: uid})
     .then((response) => {
       output.success({conversations: response.data.conversations});
     })
