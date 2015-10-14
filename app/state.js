@@ -9,10 +9,19 @@ const computed = {
     return getComputed(['currentPracticeUser']).uid;
   },
 
-  isNewConversation: function(get, getComputed) {
-    debugger
-    return get(['conversations', 'read_by_uids']).every((uid) => {
-      uid !== getComputed(['currentPracticeUserUid']);
+  isNew: function(get, getComputed) {
+    return (conversation) => {
+      return conversation.read_by_uids.every((uid) => {
+        uid !== getComputed(['currentPracticeUserUid']);
+      });
+    };
+  },
+
+  decoratedConversations: function(get, getComputed) {
+    return get(['conversations']).map((conversation) => {
+      let clone   = Object.assign({}, conversation);
+      clone.isNew = computed.isNew(get, getComputed)(conversation);
+      return clone;
     });
   }
 };

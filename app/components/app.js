@@ -22,8 +22,8 @@ class App extends React.Component {
   }
 }
 
-@Cerebral({
-  conversations: ['conversations']
+@Cerebral({}, {
+  conversations: ['decoratedConversations']
 })
 class ConversationList extends React.Component {
   renderConversations() {
@@ -54,9 +54,6 @@ class ConversationList extends React.Component {
   }
 }
 
-@Cerebral({}, {
-  isNew: ['isNewConversation']
-})
 class Conversation extends React.Component {
   render() {
     return (
