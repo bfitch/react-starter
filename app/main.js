@@ -4,29 +4,10 @@ import Router from 'cerebral-router';
 import {Container} from 'cerebral-react';
 import controller from './controller';
 import App from './components/app';
-import {setCurrentUser, setConversations, setError} from './actions/state';
-import {login, verifyToken, loadAccessToken, setAccessToken, getUserData, getAccessToken, setAjaxBearerToken} from './actions/auth';
-import {fetchConversations} from './actions/api';
-
-let loadAccessTokenAction = [
-  loadAccessToken, {
-    tokenFound: [
-      [verifyToken, {
-        tokenInvalid: [Router.redirect('/login')],
-        tokenValid: [
-          setAjaxBearerToken,
-          [getUserData, {
-            success: [setCurrentUser],
-            error: [setError]
-          }],
-          Router.redirect('/my-conversations')
-        ],
-        error: [setError]
-      }]
-    ],
-    tokenNotFound: [Router.redirect('/login')]
-  }
-]
+import {setCurrentUser, setConversations, setPracticeUsers, setPatients, setError} from './actions/state';
+import {login, setAccessToken, getAccessToken} from './actions/auth';
+import {fetchConversations, fetchPracticeUsers, fetchPatients} from './actions/api';
+import loadAccessToken from './signals/loadAccessTokenSignal';
 
 let getAccessTokenAction = [
   [getAccessToken, {
@@ -45,16 +26,31 @@ let myConversationsAction = [
   }]
 ]
 
-controller.signal('rootRouted', loadAccessTokenAction);
+let fetchPracticeUsersAction = [
+  [fetchPracticeUsers, {
+    success: [setPracticeUsers],
+    error: [setError]
+  }]
+]
+
+let fetchPatientsAction = [
+  [fetchPatients, {
+    success: [setPatients],
+    error: [setError]
+  }]
+]
+
+controller.signal('rootRouted', [...loadAccessToken, Router.redirect('/my-conversations')]);
 controller.signal('loginRouted', [login]);
 controller.signal('oauthdCallbackRouted', getAccessTokenAction);
-controller.signal('myConversationsRouted', myConversationsAction);
+controller.signal('myConversationsRouted', [...loadAccessToken, ...myConversationsAction, ...fetchPracticeUsersAction, ...fetchPatientsAction]);
 
 Router(controller, {
-  '/':               'rootRouted',
-  '/login':          'loginRouted',
-  '/oauthd_callback': 'oauthdCallbackRouted',
-  '/my-conversations': 'myConversationsRouted'
+  '/':                                            'rootRouted',
+  '/login':                                       'loginRouted',
+  '/oauthd_callback':                             'oauthdCallbackRouted',
+  '/my-conversations':                            'myConversationsRouted',
+  // '/my-conversations/:conversation_uid/messages': 'messagesRouted'
 }).trigger();
 
 ReactDOM.render(

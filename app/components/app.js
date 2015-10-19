@@ -23,7 +23,7 @@ class App extends React.Component {
 }
 
 @Cerebral({}, {
-  conversations: ['decoratedConversations']
+  conversations: ['readStatusConversations']
 })
 class ConversationList extends React.Component {
   renderConversations() {

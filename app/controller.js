@@ -1,6 +1,6 @@
 import Controller from 'cerebral';
 import Model from 'cerebral-baobab';
-import {state,computed} from './state';
+import {state, computed} from './state';
 import axios from 'axios';
 import OAuth from '../vendor/oauth';
 import Cachejax from './cachejax';
@@ -8,9 +8,22 @@ import Cachejax from './cachejax';
 let model = Model(state);
 
 const config = {
-  endpointMapping: {
-    'currentUser': 'http://snowflake.dev/api/v1/me.json',
-    'conversations': 'http://postmaster.dev/api/v1/conversations'
+  currentUser: {
+    mapping: 'http://snowflake.dev/api/v1/me.json',
+    root: false
+  },
+  conversations: {
+    mapping: 'http://postmaster.dev/api/v1/conversations'
+  },
+  patients: {
+    mapping: 'http://icisstaff.dev/api/patients/v3/patients/:guid',
+    rootKey: 'patient',
+    batch: true
+  },
+  practiceUsers: {
+    mapping: 'http://postmaster.dev/api/v1/practice_users/:uid',
+    rootKey: 'practice_user',
+    batch: true
   }
 }
 
