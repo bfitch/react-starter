@@ -3,7 +3,7 @@ import Model from 'cerebral-baobab';
 import {state, computed} from './state';
 import axios from 'axios';
 import OAuth from '../vendor/oauth';
-import Cachejax from './cachejax';
+import Cachejax from 'cachejax';
 
 let model = Model(state);
 

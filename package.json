@@ -22,6 +22,7 @@
     "babel-runtime": "^5.8.24",
     "baobab": "^2.0.0",
     "body-parser": "^1.13.2",
+    "cachejax": "bfitch/cachejax",
     "cerebral": "^0.20.11",
     "cerebral-baobab": "^0.3.1",
     "cerebral-react": "^0.4.1",
