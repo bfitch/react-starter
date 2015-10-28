@@ -9,11 +9,21 @@ import {login, setAccessToken, getAccessToken} from './actions/auth';
 import {fetchConversations, fetchPracticeUsers, fetchPatients} from './actions/api';
 import loadAccessToken from './signals/loadAccessTokenSignal';
 
+function redirect(url) {
+  function action(input, state, output, services) {
+    return services.router.redirect(url, {
+      replace: false
+    });
+  }
+  action.displayName = `redirect(${url})`;
+  return action;
+}
+
 let getAccessTokenAction = [
   [getAccessToken, {
     success: [
       setAccessToken,
-      Router.redirect('/')
+      redirect('/')
     ],
     error: [setError]
   }]
@@ -40,7 +50,7 @@ let fetchPatientsAction = [
   }]
 ]
 
-controller.signal('rootRouted', [...loadAccessToken, Router.redirect('/my-conversations')]);
+controller.signal('rootRouted', [...loadAccessToken, redirect('/my-conversations')]);
 controller.signal('loginRouted', [login]);
 controller.signal('oauthdCallbackRouted', getAccessTokenAction);
 controller.signal('myConversationsRouted', [...loadAccessToken, ...myConversationsAction, ...fetchPracticeUsersAction, ...fetchPatientsAction]);
