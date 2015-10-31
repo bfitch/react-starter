@@ -17,12 +17,12 @@ const config = {
   },
   patients: {
     mapping: 'http://icisstaff.dev/api/patients/v3/patients/:guid',
-    rootKey: 'patient',
+    root: 'patient',
     batch: true
   },
   practiceUsers: {
     mapping: 'http://postmaster.dev/api/v1/practice_users/:uid',
-    rootKey: 'practice_user',
+    root: 'practice_user',
     batch: true
   }
 }
